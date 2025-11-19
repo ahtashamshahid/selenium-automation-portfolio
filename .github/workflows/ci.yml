@@ -31,14 +31,6 @@ jobs:
           sudo apt update
           sudo apt install -y google-chrome-stable
 
-      # ---- Install ChromeDriver ----
-      - name: Install ChromeDriver
-        run: |
-          sudo apt install -y chromium-chromedriver
-          if [ ! -f /usr/bin/chromedriver ]; then
-            sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/
-          fi
-
       # ---- Run Tests ----
       - name: Run Selenium Tests
         run: pytest -q --html=reports/report.html
