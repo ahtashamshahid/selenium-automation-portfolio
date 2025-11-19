@@ -1,0 +1,49 @@
+name: Selenium CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    steps:
+      # ---- Checkout Repo ----
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      # ---- Install Python ----
+      - name: Set up Python
+        uses: actions/setup-python@v4
+        with:
+          python-version: "3.11"
+
+      # ---- Install Dependencies ----
+      - name: Install dependencies
+        run: |
+          pip install -r requirements.txt
+          pip install pytest pytest-html selenium
+
+      # ---- Install Google Chrome ----
+      - name: Install Google Chrome
+        run: |
+          sudo apt update
+          sudo apt install -y google-chrome-stable
+
+      # ---- Install ChromeDriver ----
+      - name: Install Chrome Driver
+        run: |
+          sudo apt install -y chromium-chromedriver
+          sudo ln -s /usr/lib/chromium-browser/chromedriver /usr/bin/
+
+      # ---- Run Tests ----
+      - name: Run Selenium Tests
+        run: pytest -q --html=reports/report.html
+
+      # ---- Upload Test HTML Report as Artifact ----
+      - name: Upload Test Report
+        uses: actions/upload-artifact@v3
+        with:
+          name: selenium-test-report
+          path: reports/report.html
