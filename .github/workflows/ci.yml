@@ -42,8 +42,15 @@ jobs:
         run: pytest -q --html=reports/report.html
 
       # ---- Upload Test HTML Report as Artifact ----
-      - name: Upload Test Report
-        uses: actions/upload-artifact@v3
+      - name: Upload HTML report
+        uses: actions/upload-artifact@v4
         with:
-          name: selenium-test-report
+          name: pytest-report
           path: reports/report.html
+
+      # ---- Upload Screenshots as Artifact ----
+      - name: Upload screenshots
+        uses: actions/upload-artifact@v4
+        with:
+          name: screenshots
+          path: screenshots/
