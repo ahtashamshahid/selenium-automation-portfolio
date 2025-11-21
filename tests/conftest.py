@@ -2,13 +2,14 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from pages.login_page import LoginPage
 import pytest
 import os
 
-@pytest.fixture
+@pytest.fixture(scope="class")
 def driver():
     options = Options()
-    options.add_argument("--headless=new")
+    # options.add_argument("--headless=new")
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
@@ -21,6 +22,12 @@ def driver():
 
     yield driver
     driver.quit()
+
+@pytest.fixture(scope="class")
+def login_page(driver):
+    """Class-scoped login page fixture"""
+    page = LoginPage(driver)
+    yield page
 
 # Add a pytest hook to save screenshots on failure. Create conftest.py or add below to it:
 # Store screenshots in screenshots/ and upload them as workflow artifacts.
