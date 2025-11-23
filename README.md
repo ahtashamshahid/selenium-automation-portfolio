@@ -1,45 +1,54 @@
-🧪 Selenium Automation – TechBeamers Practice Project
+# 🧪 Selenium Automation – Notes App Project
 
-Author: Ahtasham Shahid — Software QA Engineer
-Tech Stack: Python, Selenium, Pytest, WebDriver Manager, GitHub Actions
+**Author:** Ahtasham Shahid — Software QA Engineer  
+**Tech Stack:** Python, Selenium, Pytest, WebDriver Manager, GitHub Actions
 
-🎯 Project Overview
+## 🎯 Automation Project Overview
 
-This project automates UI test scenarios from the TechBeamers Selenium Practice Website, demonstrating professional test automation skills suitable for portfolio and resume.
+This project automates UI test scenarios of the **Notes App**, demonstrating professional test automation skills and best practices in framework design.
 
-🔥 What this project highlights
+## 🌟 Notes App (Tested Application)
 
-Page Object Model (POM)
+Welcome to **Notes App** – a better way to track your tasks and stay organized!
 
-Modular test structure
+### Overview
 
-Fixtures and utilities for reusable setup
+Stay productive and organized with our easy-to-use notes app.  
+Create, edit, categorize, filter, search, and toggle your notes effortlessly. Update your profile and reset your password anytime.  
 
-Comprehensive test coverage
+Simplify your life and never forget a task again!
 
-Validation of:
+### Features
 
-Navigation
+These are the core features of the **Notes App** that the automated tests cover:
 
-Form interaction
+- **User Authentication**: Create an account and securely log in.
+- **Create Notes**: Add new notes with title and description.
+- **Edit & Delete Notes**: Update or remove notes anytime.
+- **Categorize Notes**: Organize notes into categories.
+- **Filter & Search**: Quickly find notes with filters and search functionality.
+- **Toggle Notes**: Mark notes as important or completed.
+- **Profile Management**: Update your profile information.
+- **Password Reset**: Easily reset your password if forgotten.
 
-Alerts and prompts
+## 🔥 Automation Project Highlights
 
-Tables
-
-Dynamic elements
-
-JavaScript functionality
-
-Screenshots captured on failure
-
-Rich HTML test reports
-
-GitHub Actions CI pipeline
-
-Tests auto-run on commits and PRs
-
-Test reports and screenshots uploaded as artifacts
+- **Page Object Model (POM)**
+- **Modular Test Structure**
+- Fixtures and utilities for reusable setup
+- Comprehensive test coverage
+- Validation of:
+  - Navigation
+  - Form interactions
+  - Alerts and prompts
+  - Tables
+  - Dynamic elements
+  - JavaScript functionality
+- Screenshots captured on failure
+- Rich HTML test reports
+- **GitHub Actions CI pipeline**:
+  - Auto-run tests on commits and PRs
+  - Upload reports and screenshots
 
 📁 Project Structure
 .
@@ -89,13 +98,17 @@ When a test fails, a screenshot automatically saves in:
 
 This project includes a GitHub Actions pipeline (ci.yml) that:
 
+⚙ Continuous Integration (CI)
+
+This project includes a GitHub Actions pipeline (ci.yml) that:
+
 Installs dependencies
 
 Runs tests on:
 
 Every push
 
-Every PR
+Every Pull Request
 
 Uploads:
 
@@ -103,13 +116,11 @@ HTML report
 
 Failed test screenshots
 
-CI status is visible in the repository badges and workflow tab.
+CI status is visible in repository badges and the workflow tab.
 
 🌐 Target Website
 
-Tests use the practice website provided by:
-
-https://techbeamers.com/selenium-webdriver-sample-automation-test/
+https://practice.expandtesting.com/notes/app/
 
 🧩 Skills Demonstrated
 
@@ -127,5 +138,5 @@ https://techbeamers.com/selenium-webdriver-sample-automation-test/
 
 This project is fully designed so it can be referenced as:
 
-Selenium Automation Portfolio Project (TechBeamers Practice Site)
+Selenium Automation Portfolio Project (Notes App)
 Demonstrates POM framework, automation coverage, reporting, and CI pipeline.
