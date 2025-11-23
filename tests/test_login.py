@@ -32,6 +32,10 @@ class TestLoginNegative:
         assert login_page.get_alert_message() == "Incorrect email address or password"
         login_page.clear_fields()
 
+    def test_close_error_toast(self, login_page):
+        login_page.close_alert_message()
+        assert not login_page.is_visible(login_page.ALERT_MESSAGE)
+
     # @pytest.mark.skip(reason="Not ready yet")
     def test_empty_fields(self, login_page):
         # Submit empty form, No email or password
@@ -79,16 +83,6 @@ class TestLoginPositive:
 
     def test_valid_login(self, login_once):
         assert login_once.wait_for_login_success() is True
-
-
-    # # ----------------------------------
-    # # Close Error Toast
-    # # ----------------------------------
-    # def test_close_error_toast(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.login(INVALID_EMAIL, INVALID_PASSWORD)
-    #     login_page.close_error_toast()
-    #     assert not login_page.is_visible(login_page.ERROR_MSG)
 
     # # ----------------------------------
     # # Forgot Password Navigation

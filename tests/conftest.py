@@ -9,14 +9,23 @@ import os
 @pytest.fixture(scope="class")
 def driver():
     options = Options()
-    options.add_argument("--headless=new")
+    # options.add_argument("--headless=new")
+    options.add_argument("--log-level=3")
+    options.add_experimental_option("excludeSwitches", ["enable-logging"])
     options.add_argument("--no-sandbox")
     options.add_argument("--disable-dev-shm-usage")
     options.add_argument("--disable-gpu")
+    options.add_argument("--disable-features=GpuProcessSupport")
+    options.add_argument("--disable-software-rasterizer")
     options.add_argument("--window-size=1920,1080")
 
+    service = Service(
+        ChromeDriverManager().install(),
+        log_path="NUL"     # Stop Chrome writing logs to console
+    )
+
     driver = webdriver.Chrome(
-        service=Service(ChromeDriverManager().install()),
+        service=service,
         options=options
     )
 

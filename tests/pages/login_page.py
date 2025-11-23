@@ -17,11 +17,11 @@ class LoginPage(BasePage):
     EMAIL_ERROR = (By.CSS_SELECTOR, '#email + .invalid-feedback')
     PASSWORD_ERROR = (By.CSS_SELECTOR, '#password + .invalid-feedback')
 
-    # ERROR_CLOSE = (By.XPATH, "//*[@data-testid='alert-close']")
+    ALERT_CLOSE_BUTTON = (By.CSS_SELECTOR, "[data-testid='alert-close']")
     # FORGOT_PASSWORD = (By.ID, "forgotPasswordLink")
     # GOOGLE_BTN = (By.XPATH, "//*[@data-testid='login-with-google']")
     # LINKEDIN_BTN = (By.XPATH, "//*[@data-testid='login-with-linkedin']")
-    # REGISTER_LINK = (By.XPATH, "//*[@data-testid='register-view']")
+    REGISTER_LINK = (By.XPATH, "//*[@data-testid='register-view']")
 
      # After login - nav bar locators
     HOME_LINK = (By.CSS_SELECTOR, "a[data-testid='home']")
@@ -99,9 +99,9 @@ class LoginPage(BasePage):
     def refresh_page(self):
         self.driver.refresh()
 
-    # def close_error_toast(self):
-    #     if self.is_visible(self.ERROR_CLOSE):
-    #         self.click(self.ERROR_CLOSE)
+    def close_alert_message(self):
+        if self.is_visible(self.ALERT_MESSAGE):
+            self.click(self.ALERT_CLOSE_BUTTON)
 
     # def click_forgot_password(self):
     #     self.click(self.FORGOT_PASSWORD)
