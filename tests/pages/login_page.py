@@ -90,9 +90,9 @@ class LoginPage(BasePage):
 
         errors = {}
 
-        for key, locator in error_locators.items():
+        for field, locator in error_locators.items():
             if self.is_visible(locator):
-                errors[key] = self.get_text(locator)
+                errors[field] = self.get_text(locator)
 
         return errors if errors else None
 
