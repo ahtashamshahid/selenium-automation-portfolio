@@ -3,6 +3,7 @@ from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
 from pages.login_page import LoginPage
+from pages.register_page import RegisterPage
 import pytest
 import os
 
@@ -17,7 +18,7 @@ def driver():
     options.add_argument("--disable-gpu")
     options.add_argument("--disable-features=GpuProcessSupport")
     options.add_argument("--disable-software-rasterizer")
-    options.add_argument("--window-size=1920,1080")
+    options.add_argument("--start-maximized")
 
     service = Service(
         ChromeDriverManager().install(),
@@ -36,6 +37,12 @@ def driver():
 def login_page(driver):
     """Class-scoped login page fixture"""
     page = LoginPage(driver)
+    yield page
+
+@pytest.fixture(scope="class")
+def register_page(driver):
+    """Class-scoped - register page fixture"""
+    page = RegisterPage(driver)
     yield page
 
 # Add a pytest hook to save screenshots on failure. Create conftest.py or add below to it:
