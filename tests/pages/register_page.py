@@ -11,6 +11,9 @@ class RegisterPage(BasePage):
     PASSWORD =  (By.CSS_SELECTOR, "[data-testid='register-password']")
     CONFIRM_PASSWORD =  (By.CSS_SELECTOR, "[data-testid='register-confirm-password']")
     REGISTER_BTN = (By.CSS_SELECTOR, "[data-testid='register-submit']")
+    SUCCESS_ALERT = (By.CSS_SELECTOR, ".alert.alert-success")
+    SUCCESS_TEXT = (By.CSS_SELECTOR, ".alert.alert-success b")
+    LOGIN_LINK = (By.CSS_SELECTOR, '[data-testid="login-view"]')
 
     # Error Messages
     EMAIL_ERROR = (By.CSS_SELECTOR, '#email + .invalid-feedback')
@@ -56,8 +59,10 @@ class RegisterPage(BasePage):
                 errors[field] = self.get_text(locator)
         
         return errors if errors else None
-  
-    # Check element visible
+    
+    # Get success message after registeration
+    def success_message(self):
+        return self.get_text(self.SUCCESS_TEXT)
 
 
     

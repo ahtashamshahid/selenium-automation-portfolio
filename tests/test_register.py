@@ -85,7 +85,7 @@ class TestRegisterNegative:
 # -------------------------------------------------------
 
 class TestRegisterPositive:
-    @pytest.mark.skip(reason="Not ready yet")
+    # @pytest.mark.skip(reason="Not ready yet")
     def test_successful_user_registration(self, register_page):
         """Verify that a user can register successfully with valid data or with multiple data sets using dictionary-based test data."""
         register_page.go_to(REGISTER_URL)
@@ -95,6 +95,8 @@ class TestRegisterPositive:
         register_page.enter_password(valid_test_data["password"])
         register_page.enter_confirm_password(valid_test_data["password"])
         register_page.click_register()
-        # After successful registration, user should be redirected
-        assert register_page.wait_for_registartion_success()
+        # After successful registration, user should be redirected to a page where we can verify success using: The success message, The alert box, The link with data-testid="login-view"
+        assert register_page.is_visible(RegisterPage.SUCCESS_ALERT)
+        assert register_page.is_visible(RegisterPage.LOGIN_LINK)
+        assert register_page.success_message() == "User account created successfully"
 
