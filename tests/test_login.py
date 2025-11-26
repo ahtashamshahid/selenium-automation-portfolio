@@ -73,24 +73,24 @@ class TestLoginNegative:
 class TestLoginPositive:
     """Positive login tests: valid credentials"""
 
-    @pytest.fixture(scope="class", autouse=True)
-    def login_once(self, login_page):
-        """Login once for all positive tests"""
+    def test_valid_login(self, login_page):
         login_page.open_login_page(LOGIN_URL)
         login_page.login(VALID_EMAIL, VALID_PASSWORD)
         login_page.wait_for_login_success()
-        return login_page
-
-    def test_valid_login(self, login_once):
-        assert login_once.wait_for_login_success() is True
+        assert login_page.wait_for_login_success() is True
+        login_page.click_logout()
 
     def test_forgot_password_link(self, login_page):
-        
+        login_page.open_login_page(LOGIN_URL)
         # Verify link is visible
         assert login_page.is_forgot_password_visible()
 
         # Verify link text
         assert login_page.get_forgot_password_text() == "Forgot password"
+
+        # Verify href attribute
+        expected_url = "/notes/app/forgot-password"
+        assert expected_url in login_page.get_forgot_password_href()
 
         # Click link
         login_page.click_forgot_password()
@@ -101,9 +101,7 @@ class TestLoginPositive:
         # Verify Reset Password page elements
         assert login_page.is_reset_page_loaded()
 
-        # Verify href attribute
-        expected_url = "/notes/app/forgot-password"
-        assert expected_url in login_page.get_forgot_password_href()
+
       
 
     # def test_register_link(self, login_page):

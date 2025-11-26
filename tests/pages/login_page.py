@@ -11,6 +11,7 @@ class LoginPage(BasePage):
     EMAIL_INPUT = (By.CSS_SELECTOR, "input[data-testid='login-email']")
     PASSWORD_INPUT = (By.CSS_SELECTOR, "input[data-testid='login-password']")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-testid='login-submit']")
+    LOGOUT_BUTTON = (By.CSS_SELECTOR, "button[data-testid='logout']")
     ALERT_MESSAGE = (By.CSS_SELECTOR, "[data-testid='alert-message']")
     FORGOT_PASSWORD_LINK = (By.ID, "forgotPasswordLink")
 
@@ -52,6 +53,9 @@ class LoginPage(BasePage):
 
     def click_login(self):
         self.click(self.LOGIN_BUTTON)
+
+    def click_logout(self):
+        self.click(self.LOGOUT_BUTTON)
 
     def clear_fields(self):
         self.type(self.EMAIL_INPUT, "", clear_first=True)
