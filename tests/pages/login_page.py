@@ -12,13 +12,20 @@ class LoginPage(BasePage):
     PASSWORD_INPUT = (By.CSS_SELECTOR, "input[data-testid='login-password']")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-testid='login-submit']")
     ALERT_MESSAGE = (By.CSS_SELECTOR, "[data-testid='alert-message']")
+    FORGOT_PASSWORD_LINK = (By.ID, "forgotPasswordLink")
+
+    # --- Reset Password Page Locators ---
+    RESET_PAGE_HEADER = (By.XPATH, "//h1[text()='Reset your password']")
+    RESET_EMAIL_INPUT = (By.CSS_SELECTOR, "input[data-testid='forgot-password-email']")
+    RESET_SUBMIT_BUTTON = (By.CSS_SELECTOR, "button[data-testid='forgot-password-submit']")
+    RESET_BACK_TO_LOGIN = (By.CSS_SELECTOR, "a[data-testid='login-view']")
 
     # Error Messages
     EMAIL_ERROR = (By.CSS_SELECTOR, '#email + .invalid-feedback')
     PASSWORD_ERROR = (By.CSS_SELECTOR, '#password + .invalid-feedback')
 
     ALERT_CLOSE_BUTTON = (By.CSS_SELECTOR, "[data-testid='alert-close']")
-    # FORGOT_PASSWORD = (By.ID, "forgotPasswordLink")
+
     # GOOGLE_BTN = (By.XPATH, "//*[@data-testid='login-with-google']")
     # LINKEDIN_BTN = (By.XPATH, "//*[@data-testid='login-with-linkedin']")
     REGISTER_LINK = (By.XPATH, "//*[@data-testid='register-view']")
@@ -103,8 +110,34 @@ class LoginPage(BasePage):
         if self.is_visible(self.ALERT_MESSAGE):
             self.click(self.ALERT_CLOSE_BUTTON)
 
-    # def click_forgot_password(self):
-    #     self.click(self.FORGOT_PASSWORD)
+    def is_forgot_password_visible(self):
+        return self.is_visible(self.FORGOT_PASSWORD_LINK)
+
+    def get_forgot_password_text(self):
+        return self.get_text(self.FORGOT_PASSWORD_LINK)
+
+    def get_forgot_password_href(self):
+        return self.get_attribute(self.FORGOT_PASSWORD_LINK, "href")
+
+    def click_forgot_password(self):
+        self.click(self.FORGOT_PASSWORD_LINK)
+
+    def is_reset_page_loaded(self):
+        """
+        Confirms the Reset Password page UI loaded correctly.
+        Checks:
+        - Header: 'Reset your password'
+        - Email field visible
+        - Submit button visible
+        - Back-to-login button visible
+        """
+
+        return (
+            self.is_visible(self.RESET_PAGE_HEADER)
+            and self.is_visible(self.RESET_EMAIL_INPUT)
+            and self.is_visible(self.RESET_SUBMIT_BUTTON)
+            and self.is_visible(self.RESET_BACK_TO_LOGIN)
+        )
 
     # def click_google_login(self):
     #     self.click(self.GOOGLE_BTN)

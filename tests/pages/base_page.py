@@ -94,6 +94,10 @@ class BasePage:
     def go_to(self, url):
         self.driver.get(url)
 
+    def get_current_url(self) -> str:
+        """Return the current page URL."""
+        return self.driver.current_url
+
     # -------------------------
     # Action Chains (Hover, etc)
     # -------------------------

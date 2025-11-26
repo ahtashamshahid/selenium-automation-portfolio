@@ -84,13 +84,32 @@ class TestLoginPositive:
     def test_valid_login(self, login_once):
         assert login_once.wait_for_login_success() is True
 
-    # # ----------------------------------
-    # # Forgot Password Navigation
-    # # ----------------------------------
-    # def test_forgot_password_link(self, login_page):
+    def test_forgot_password_link(self, login_page):
+        
+        # Verify link is visible
+        assert login_page.is_forgot_password_visible()
+
+        # Verify link text
+        assert login_page.get_forgot_password_text() == "Forgot password"
+
+        # Click link
+        login_page.click_forgot_password()
+
+        # Verify URL changed
+        assert "forgot-password" in login_page.get_current_url().lower()
+
+        # Verify Reset Password page elements
+        assert login_page.is_reset_page_loaded()
+
+        # Verify href attribute
+        expected_url = "/notes/app/forgot-password"
+        assert expected_url in login_page.get_forgot_password_href()
+      
+
+    # def test_register_link(self, login_page):
     #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.click_forgot_password()
-    #     assert "forgot" in login_page.driver.current_url.lower()
+    #     login_page.click_register()
+    #     assert "register" in login_page.driver.current_url.lower()
 
     # # ----------------------------------
     # # Google OAuth Button
@@ -107,14 +126,6 @@ class TestLoginPositive:
     #     login_page.open_login_page(LOGIN_URL)
     #     login_page.click_linkedin_login()
     #     assert "linkedin" in login_page.driver.current_url.lower()
-
-    # # ----------------------------------
-    # # Register Link
-    # # ----------------------------------
-    # def test_register_link(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.click_register()
-    #     assert "register" in login_page.driver.current_url.lower()
 
     # # ----------------------------------
     # # SQL Injection Attempt
