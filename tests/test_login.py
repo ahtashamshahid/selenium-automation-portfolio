@@ -102,41 +102,24 @@ class TestLoginPositive:
         assert login_page.is_reset_page_loaded()
 
 
-      
+    def test_register_link(self, login_page):
+        login_page.open_login_page(LOGIN_URL)
 
-    # def test_register_link(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.click_register()
-    #     assert "register" in login_page.driver.current_url.lower()
+        # Verify link is visible
+        assert login_page.is_register_link_visible()
 
-    # # ----------------------------------
-    # # Google OAuth Button
-    # # ----------------------------------
-    # def test_google_login_button(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.click_google_login()
-    #     assert "google" in login_page.driver.current_url.lower()
+        # Verify link text
+        assert login_page.get_register_link_text() == "Create a free account!"
 
-    # # ----------------------------------
-    # # LinkedIn OAuth Button
-    # # ----------------------------------
-    # def test_linkedin_login_button(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.click_linkedin_login()
-    #     assert "linkedin" in login_page.driver.current_url.lower()
+        # Verify href attribute
+        expected_url = "/notes/app/register"
+        assert expected_url in login_page.get_register_link_href()
 
-    # # ----------------------------------
-    # # SQL Injection Attempt
-    # # ----------------------------------
-    # def test_sql_injection(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.login("admin' OR 1=1--", "abc")
-    #     assert login_page.get_error_message() is not None
+        # Click link
+        login_page.click_register_link() 
 
-    # # ----------------------------------
-    # # XSS Attempt
-    # # ----------------------------------
-    # def test_xss(self, login_page):
-    #     login_page.open_login_page(LOGIN_URL)
-    #     login_page.login("<script>alert(1)</script>", "pass")
-    #     assert login_page.get_error_message() is not None
+        #  Verify URL changed
+        assert "register" in login_page.get_current_url().lower()
+
+        # Verify Register page elements 
+        assert login_page.is_register_page_loaded()       

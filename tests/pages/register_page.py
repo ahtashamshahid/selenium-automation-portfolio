@@ -4,12 +4,16 @@ from selenium.webdriver.support import expected_conditions as EC
 from pages.base_page import BasePage
 
 class RegisterPage(BasePage):
+
+    def __init__(self, driver):
+        super().__init__(driver)
     
-    # Locators
-    EMAIL =  (By.CSS_SELECTOR, "[data-testid='register-email']")
-    NAME =  (By.CSS_SELECTOR, "[data-testid='register-name']")
-    PASSWORD =  (By.CSS_SELECTOR, "[data-testid='register-password']")
-    CONFIRM_PASSWORD =  (By.CSS_SELECTOR, "[data-testid='register-confirm-password']")
+    # Regsiter Locators
+    REGISTER_PAGE_HEADER = (By.XPATH, "//h1[text()='Register']")
+    REGISTER_EMAIL_INPUT =  (By.CSS_SELECTOR, "[data-testid='register-email']")
+    REGISTER_NAME_INPUT =  (By.CSS_SELECTOR, "[data-testid='register-name']")
+    REGISTER_PASSWORD_INPUT =  (By.CSS_SELECTOR, "[data-testid='register-password']")
+    REGSITER_CONFIRM_PASSWORD_INPUT =  (By.CSS_SELECTOR, "[data-testid='register-confirm-password']")
     REGISTER_BTN = (By.CSS_SELECTOR, "[data-testid='register-submit']")
     SUCCESS_ALERT = (By.CSS_SELECTOR, ".alert.alert-success")
     SUCCESS_TEXT = (By.CSS_SELECTOR, ".alert.alert-success b")
@@ -21,22 +25,18 @@ class RegisterPage(BasePage):
     NAME_ERROR = (By.CSS_SELECTOR, '#name + .invalid-feedback')
     CONFIRM_PASSWORD_ERROR = (By.CSS_SELECTOR, '#confirmPassword + .invalid-feedback')
 
-    def __init__(self, driver):
-        self.driver = driver
-        self.wait = WebDriverWait(self.driver, 10)
-
     # Fill form fields
     def enter_email(self, email):
-        self.type(self.EMAIL, email)
+        self.type(self.REGISTER_EMAIL_INPUT, email)
     
     def enter_name(self, name):
-        self.type(self.NAME, name)
+        self.type(self.REGISTER_NAME_INPUT, name)
     
     def enter_password(self, password):
-        self.type(self.PASSWORD, password)
+        self.type(self.REGISTER_PASSWORD_INPUT, password)
 
     def enter_confirm_password(self, confirm_password):
-        self.type(self.CONFIRM_PASSWORD, confirm_password)
+        self.type(self.REGSITER_CONFIRM_PASSWORD_INPUT, confirm_password)
 
     # Click Register
     def click_register(self):

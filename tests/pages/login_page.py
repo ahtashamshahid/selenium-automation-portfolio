@@ -3,17 +3,23 @@ from selenium.webdriver.support.ui import WebDriverWait
 from selenium.webdriver.support import expected_conditions as EC
 from selenium.common.exceptions import TimeoutException, NoSuchElementException
 from pages.base_page import BasePage
+from pages.register_page import RegisterPage
 
 
 class LoginPage(BasePage):
 
-    # Locators
+    def __init__(self, driver):
+        super().__init__(driver)
+        self.register_page = RegisterPage(driver)
+
+    # Login Page Locators
     EMAIL_INPUT = (By.CSS_SELECTOR, "input[data-testid='login-email']")
     PASSWORD_INPUT = (By.CSS_SELECTOR, "input[data-testid='login-password']")
     LOGIN_BUTTON = (By.CSS_SELECTOR, "button[data-testid='login-submit']")
     LOGOUT_BUTTON = (By.CSS_SELECTOR, "button[data-testid='logout']")
     ALERT_MESSAGE = (By.CSS_SELECTOR, "[data-testid='alert-message']")
     FORGOT_PASSWORD_LINK = (By.ID, "forgotPasswordLink")
+    REGISTER_LINK = (By.CSS_SELECTOR, "[data-testid='register-view']")
 
     # --- Reset Password Page Locators ---
     RESET_PAGE_HEADER = (By.XPATH, "//h1[text()='Reset your password']")
@@ -29,7 +35,6 @@ class LoginPage(BasePage):
 
     # GOOGLE_BTN = (By.XPATH, "//*[@data-testid='login-with-google']")
     # LINKEDIN_BTN = (By.XPATH, "//*[@data-testid='login-with-linkedin']")
-    REGISTER_LINK = (By.XPATH, "//*[@data-testid='register-view']")
 
      # After login - nav bar locators
     HOME_LINK = (By.CSS_SELECTOR, "a[data-testid='home']")
@@ -142,12 +147,31 @@ class LoginPage(BasePage):
             and self.is_visible(self.RESET_SUBMIT_BUTTON)
             and self.is_visible(self.RESET_BACK_TO_LOGIN)
         )
+    
+    def is_register_link_visible(self):
+        return self.is_visible(self.REGISTER_LINK)
+
+    def get_register_link_text(self):
+        return self.get_text(self.REGISTER_LINK)
+
+    def get_register_link_href(self):
+        return self.get_attribute(self.REGISTER_LINK, "href")
+
+    def click_register_link(self):
+        self.click(self.REGISTER_LINK)
+
+    def is_register_page_loaded(self):
+        """Confirms the Register Password page UI loaded correctly.
+        """
+        return (
+            self.is_visible(self.register_page.REGISTER_PAGE_HEADER)
+            and self.is_visible(self.register_page.REGISTER_EMAIL_INPUT)
+            and self.is_visible(self.register_page.REGISTER_NAME_INPUT)
+            and self.is_visible(self.register_page.REGISTER_BTN)
+        )
 
     # def click_google_login(self):
     #     self.click(self.GOOGLE_BTN)
 
     # def click_linkedin_login(self):
     #     self.click(self.LINKEDIN_BTN)
-
-    # def click_register(self):
-    #     self.click(self.REGISTER_LINK)

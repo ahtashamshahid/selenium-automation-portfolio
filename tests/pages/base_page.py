@@ -32,7 +32,7 @@ class BasePage:
         element.send_keys(text)
 
     def get_text(self, locator):
-        return self.driver.find_element(*locator).text
+        return self.driver.find_element(*locator).text.strip()
     
     def get_element(self, locator):
         return self.driver.find_element(*locator)
