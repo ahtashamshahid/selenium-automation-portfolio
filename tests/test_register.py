@@ -33,10 +33,10 @@ class TestRegisterUI:
     
     def test_register_ui_elements_visible(self, register_page):
         """Verify that all UI fields and buttons exist.""" 
-        assert register_page.is_visible(RegisterPage.EMAIL)
-        assert register_page.is_visible(RegisterPage.NAME)
-        assert register_page.is_visible(RegisterPage.PASSWORD)
-        assert register_page.is_visible(RegisterPage.CONFIRM_PASSWORD)
+        assert register_page.is_visible(RegisterPage.REGISTER_EMAIL_INPUT)
+        assert register_page.is_visible(RegisterPage.REGISTER_NAME_INPUT)
+        assert register_page.is_visible(RegisterPage.REGISTER_PASSWORD_INPUT)
+        assert register_page.is_visible(RegisterPage.REGSITER_CONFIRM_PASSWORD_INPUT)
 
 # -------------------------------------------------------
 # FUNCTIONAL NEGATIVE TESTS CASSES
