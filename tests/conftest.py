@@ -2,6 +2,7 @@ from selenium import webdriver
 from selenium.webdriver.chrome.service import Service
 from selenium.webdriver.chrome.options import Options
 from webdriver_manager.chrome import ChromeDriverManager
+from pages.home_page import HomePage
 from pages.login_page import LoginPage
 from pages.register_page import RegisterPage
 import pytest
@@ -10,7 +11,7 @@ import os
 @pytest.fixture(scope="class")
 def driver():
     options = Options()
-    options.add_argument("--headless=new")
+    # options.add_argument("--headless=new")
     options.add_argument("--log-level=3")
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
     options.add_argument("--no-sandbox")
@@ -33,17 +34,25 @@ def driver():
     yield driver
     driver.quit()
 
+
+# ---------- Fixture for Home Page ----------
+@pytest.fixture()
+def home_page(driver):
+    page = HomePage(driver)
+    page.load()  # reset before each test
+    return page
+
+# ---------- Fixture for Login Page ----------
 @pytest.fixture(scope="class")
 def login_page(driver):
-    """Class-scoped login page fixture"""
     page = LoginPage(driver)
-    yield page
+    return page
 
+# ---------- Fixture for Register Page ----------
 @pytest.fixture(scope="class")
 def register_page(driver):
-    """Class-scoped - register page fixture"""
     page = RegisterPage(driver)
-    yield page
+    return page
 
 # Add a pytest hook to save screenshots on failure. Create conftest.py or add below to it:
 # Store screenshots in screenshots/ and upload them as workflow artifacts.
