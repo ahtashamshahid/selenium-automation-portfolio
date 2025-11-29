@@ -134,3 +134,7 @@ class BasePage:
     # -------------------------
     def take_screenshot(self, filename):
         self.driver.save_screenshot(filename)
+
+    def find(self, locator):
+        return self.wait.until(EC.presence_of_element_located(locator))
+

@@ -9,9 +9,9 @@ import pytest
 import os
 
 @pytest.fixture(scope="class")
-def driver():
+def driver(request):
     options = Options()
-    # options.add_argument("--headless=new")
+    options.add_argument("--headless=new")
     options.add_argument("--log-level=3")
     options.add_experimental_option("excludeSwitches", ["enable-logging"])
     options.add_argument("--no-sandbox")
@@ -31,15 +31,25 @@ def driver():
         options=options
     )
 
+    request.cls.driver = driver
     yield driver
     driver.quit()
 
 
 # ---------- Fixture for Home Page ----------
-@pytest.fixture()
-def home_page(driver):
+
+@pytest.fixture(scope="class")
+def home_page_ui(request):
+    driver = request.cls.driver      # <-- driver now exists because we use "driver" fixture on class
     page = HomePage(driver)
-    page.load()  # reset before each test
+    page.load()
+    request.cls.home_page = page     # attach page to class
+    return page
+
+@pytest.fixture()
+def home_page_functional(driver):
+    page = HomePage(driver)
+    page.load() 
     return page
 
 # ---------- Fixture for Login Page ----------
